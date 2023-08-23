@@ -20,4 +20,6 @@ Route::get('/about', [MainController::class, 'about']);
 Route::get('/product', [MainController::class, 'product']);
 
 Route::get('/admin', [ProductController::class, 'index']);
-Route::get('/admin/create', [ProductController::class, 'store']);
+Route::post('/admin/create', [ProductController::class, 'store']);
+Route::post('/admin/edit/{product}', [ProductController::class, 'update']);
+Route::post('/admin/delete/{product}', [ProductController::class, 'destroy']);

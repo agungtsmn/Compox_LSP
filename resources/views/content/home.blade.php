@@ -101,6 +101,15 @@
             letter-spacing: -1px;
             font-size: 25px;
         }
+        .memori{
+            background-color: #15484C;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            position: fixed;
+            bottom: 50px;
+            left: 50px;
+        }
     </style>
 @endpush
 
@@ -189,19 +198,21 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4">
-                <div class="box-product">
-                    <div class="box-product-img">
-                        <img src="{{ asset('img/produk1.jpg') }}" alt="">
+            @foreach ($data as $dataProduct)
+                <div class="col-lg-4">
+                    <div class="box-product">
+                        <div class="box-product-img">
+                            <img src="{{ Storage::url($dataProduct->image) }}" alt="">
+                        </div>
+                        <div class="box-product-title">
+                            <span>{{ date('d/m/Y', strtotime($dataProduct->created_at)) }}</span>
+                            <h3>{{ $dataProduct->title }}</h3>
+                            <p>{{ $dataProduct->description }}</p>
+                        </div>
+                        {{-- <a href="" class="detail">See Detail <i class="ms-2 bi bi-arrow-right"></i></a> --}}
                     </div>
-                    <div class="box-product-title">
-                        <span>23/08/2023</span>
-                        <h3>Bersama Rayakan Ramadan dengan Janji Jiwa</h3>
-                        <p>Janji Jiwa dan Jiwa Toast kembali meluncurkan rangkaian menu spesial terbarunya edisi Ramadan, yaitu Crispy Chicken Spicy, Crispy Chicken Nugget, Berry Honey Tea dan Passion Peach Tea</p>
-                    </div>
-                    {{-- <a href="" class="detail">See Detail <i class="ms-2 bi bi-arrow-right"></i></a> --}}
                 </div>
-            </div>
+            @endforeach
         </div>
 
         <div class="box-follow d-flex align-items-center justify-content-center">
@@ -211,6 +222,8 @@
                 <p class="text-center" style="color: rgba(255, 255, 255, 0.8)">Jadilah bagian dari keluarga besar Jiwa Group. Bertumbuh bersama <br> memajukan industri F&B di Indonesia.</p>
             </div>
         </div>
+
+        <div class="memori">{{ $memory }}</div>
     </div>
 
     <br><br><br><br>

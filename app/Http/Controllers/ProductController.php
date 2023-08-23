@@ -13,8 +13,11 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('content.admin');
+    {   
+        $data = Product::latest()->get();
+        return view('content.admin', [
+            'data' => $data,
+        ]);
     }
 
     /**
@@ -35,17 +38,22 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $validasi = $request->validate([
             'image' => 'required',
             'title' => 'required',
             'description' => 'required',
         ]);
 
-        if ($request->file('gambar')) {
-            $validasi['gambar'] = $request->file('gambar')->store('berkas_gambar');
+        // dd($validasi);
+
+        if ($request->file('image')) {
+            $validasi['image'] = $request->file('image')->store('berkas_image');
         }
 
         Product::create($validasi);
+
+        return redirect('/admin');
     }
 
     /**
@@ -67,7 +75,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+       
     }
 
     /**
@@ -79,7 +87,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validasi = $request->validate([
+            'image' => 'nullable',
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        // dd($validasi);
+
+        if ($request->file('image')) {
+            $validasi['image'] = $request->file('image')->store('berkas_image');
+        }
+
+        $product->update($validasi);
+
+        return redirect('/admin');
     }
 
     /**
@@ -90,6 +112,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect('/admin');
     }
 }

@@ -74,19 +74,21 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4">
-                <div class="box-product">
-                    <div class="box-product-img">
-                        <img src="{{ asset('img/produk1.jpg') }}" alt="">
+            @foreach ($data as $dataProduct)
+                <div class="col-lg-4">
+                    <div class="box-product">
+                        <div class="box-product-img">
+                            <img src="{{ Storage::url($dataProduct->image) }}" alt="">
+                        </div>
+                        <div class="box-product-title">
+                            <span>{{ date('d/m/Y', strtotime($dataProduct->created_at)) }}</span>
+                            <h3>{{ $dataProduct->title }}</h3>
+                            <p>{{ $dataProduct->description }}</p>
+                        </div>
+                        {{-- <a href="" class="detail">See Detail <i class="ms-2 bi bi-arrow-right"></i></a> --}}
                     </div>
-                    <div class="box-product-title">
-                        <span>23/08/2023</span>
-                        <h3>Bersama Rayakan Ramadan dengan Janji Jiwa</h3>
-                        <p>Janji Jiwa dan Jiwa Toast kembali meluncurkan rangkaian menu spesial terbarunya edisi Ramadan, yaitu Crispy Chicken Spicy, Crispy Chicken Nugget, Berry Honey Tea dan Passion Peach Tea</p>
-                    </div>
-                    {{-- <a href="" class="detail">See Detail <i class="ms-2 bi bi-arrow-right"></i></a> --}}
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
     <!-- Button trigger modal -->
